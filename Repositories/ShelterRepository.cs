@@ -5,7 +5,7 @@ using ShelterReadinessSystemAPI.Models;
 
 namespace ShelterReadinessSystemAPI.Repositories;
 
-public class ShelterRepository
+public class ShelterRepository : IShelterRepository
 {
     private readonly ApplicationDbContext _context;
 
@@ -126,7 +126,32 @@ public class ShelterRepository
             ShelterType = e.ShelterType
         }).ToListAsync();
 
-        return await  res;
+        return await res;
 
+    }
+    public async Task<IEnumerable<ShelterWithInspectionCountDto>> GetStatsAsync()
+    {
+        var res = _context.Shelters
+            .Select(e => new ShelterWithInspectionCountDto
+            {
+                ShelterId = e.Id,
+                ShelterName = e.Name,
+                InspectionCount = e.Inspections.Count
+
+            }).ToListAsync();
+
+        return await res;
+    }
+
+    public async Task<IEnumerable<ShelterTypeAverageDto>> GetAvgByScoreAsync()
+    {
+        var res = _context.Shelters
+            .GroupBy(e => e.ShelterType).Select(e => new ShelterTypeAverageDto
+            {
+                ShelterType = e.Key,
+                AverageReadinessScore = e.Average(e => e.Inspections.Average(e => e.ReadinessScore)),
+                TotalInspections = e.Sum(e=> e.Inspections.count())
+            });
+            
     }
 }
