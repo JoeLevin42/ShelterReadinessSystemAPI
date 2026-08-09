@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-
+using ShelterReadinessSystemAPI.Models;
 namespace ShelterReadinessSystemAPI.Models;
 
 public class Shelter
@@ -25,5 +25,13 @@ public class Shelter
     public bool IsPublic { get; set; }
     [Required]
     [StringLength(50)]
+    [RegularExpression("^PublicBuilding|School|Parking|Residential|Commercial$")]
     public string ShelterType { get; set; }
+    //FK
+
+    public int AreaId { get; set; }
+    //NP
+    public Area Area { get; set; } = null!; //every shelter have one area
+
+    public ICollection<Inspection> Inspections { get; set; } = new List<Inspection>();
 }
