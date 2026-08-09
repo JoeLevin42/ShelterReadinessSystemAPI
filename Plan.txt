@@ -1,0 +1,21 @@
+Plan for this project :
+-----
+Part 1 - Basic Configuration and install packages
+1. install all the packages needed - V
+2. to define the appsettings.json (in user-secrets) - V
+3. to add the settings in the program.cs - V
+----
+Part 2 - Crate The basic models and megrate them
+1. Crate all the models and theire nevigare props / FK -V
+2. To create the DbContext and the cofugire the realationships between the models , delete behavior -V
+3. Seed data (in the DbContext)
+4. Add Db Context to prgram.cs
+5. Migrate all into the the SQL DB 
+----
+part 3 - Crate Repo that inject with the context , and implemnt linqs , DTO
+1. crate first the basic template for the repo
+2. add the repo as scoped in the program.cs
+3. decide and crate the DTO's in the separate folder
+4. implement the linq queries
+5. dupilcate the linq into pure SQL
+---

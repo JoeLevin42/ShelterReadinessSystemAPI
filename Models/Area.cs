@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-
+using ShelterReadinessSystemAPI.Models;
 namespace ShelterReadinessSystemAPI.Models;
 
 [Index(nameof(AreaCode), IsUnique = true)]
@@ -22,4 +22,7 @@ public class Area
     
     [Range(1,5)]
     public int RiskLevel { get; set; }
+
+    //NP
+    public ICollection<Shelter> Shelters { get; set; } = new List<Shelter>();
 }
